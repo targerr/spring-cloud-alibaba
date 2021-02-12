@@ -2,6 +2,8 @@ package com.wanggs.alibaba;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.web.client.RestTemplate;
 import tk.mybatis.spring.annotation.MapperScan;
 
 @SpringBootApplication
@@ -12,4 +14,14 @@ public class ContentCenterApplication {
         SpringApplication.run(ContentCenterApplication.class, args);
     }
 
+
+    /**
+     * 在Spring 容器中,创建一个对象,类型是RestTemplate,方法名或者ID 是restTemplate
+     * 相当于<bean id = "restTemplate" class="xxx.RestTemplate"></bean>
+     * @return
+     */
+    @Bean
+    public RestTemplate restTemplate (){
+        return new RestTemplate();
+    }
 }

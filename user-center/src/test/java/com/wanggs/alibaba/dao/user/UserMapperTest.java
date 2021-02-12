@@ -18,7 +18,7 @@ import java.util.List;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class UserMapperTest {
-    @Autowired
+    @Autowired(required = false)
     private UserMapper userMapper;
 
     @Test
