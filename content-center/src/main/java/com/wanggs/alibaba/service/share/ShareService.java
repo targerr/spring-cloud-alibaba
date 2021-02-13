@@ -58,18 +58,21 @@ public class ShareService {
 //        UserDTO userDTO = restTemplate.getForObject(targetUri, UserDTO.class, userId);
 
         // 第三版模拟负载均衡
-        List<ServiceInstance> instances = discoveryClient.getInstances("user-center");
-        List<String> targetUris = instances.stream()
-                // 数据转换
-                .map(instance -> instance.getUri().toString()+"/users/{id}").collect(Collectors.toList());
+//        List<ServiceInstance> instances = discoveryClient.getInstances("user-center");
+//        List<String> targetUris = instances.stream()
+//                // 数据转换
+//                .map(instance -> instance.getUri().toString()+"/users/{id}").collect(Collectors.toList());
+//
+//        // 随机获取
+//        Integer random = ThreadLocalRandom.current().nextInt(targetUris.size());
+//
+//        log.info("【请求地址】 --> {}",targetUris.get(random));
+//
+//        // 获取发布人姓名
+//        UserDTO userDTO = restTemplate.getForObject(targetUris.get(random), UserDTO.class, userId);
 
-        // 随机获取
-        Integer random = ThreadLocalRandom.current().nextInt(targetUris.size());
-
-        log.info("【请求地址】 --> {}",targetUris.get(random));
-
-        // 获取发布人姓名
-        UserDTO userDTO = restTemplate.getForObject(targetUris.get(random), UserDTO.class, userId);
+        // 第四版使用LoadBalance负载均衡
+        UserDTO userDTO = restTemplate.getForObject("http://user-center/users/{id}", UserDTO.class,userId);
 
         // 装配ShareDTO对象
         ShareDTO shareDTO = new ShareDTO();
