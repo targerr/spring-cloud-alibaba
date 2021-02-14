@@ -16,7 +16,7 @@ spring:
         #namespace: 41e75d7f-a117-4bf5-8ab7-5e62850cbf0d
         # 指定集群名称
         # NJ 假设南京机房
-        #cluster-name: NJ
+        cluster-name: NJ
   application:
     # 服务名称尽量用-，不要用_，不要用特殊字符
     name: contner-center
@@ -27,7 +27,8 @@ server:
 user-center:
   ribbon:
     #NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
-    NFLoadBalancerRuleClassName: com.wanggs.alibaba.configuration.NacosWeightRandomV2Rule
+    #NFLoadBalancerRuleClassName: com.wanggs.alibaba.configuration.NacosWeightRandomV2Rule
+    NFLoadBalancerRuleClassName: com.wanggs.alibaba.configuration.NacosSameClusterWeightedRule
 # Ribbon配置饥饿加载
 ribbon:
   eager-load:

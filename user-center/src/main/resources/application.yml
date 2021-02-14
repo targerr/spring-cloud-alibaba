@@ -17,8 +17,10 @@ spring:
           #instance: d
           #haha: hehe
           #version: v1
+        # NJ 假设南京机房
+        cluster-name: BJ
   application:
     # 服务名称尽量用-，不要用_，不要用特殊字符
     name: user-center
 server:
-  port: 8085
+  port: 8080
