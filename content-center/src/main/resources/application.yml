@@ -26,5 +26,10 @@ server:
 # 基于配置的ribbon
 user-center:
   ribbon:
-    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
-
+    #NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+    NFLoadBalancerRuleClassName: com.wanggs.alibaba.configuration.NacosWeightRandomV2Rule
+# Ribbon配置饥饿加载
+ribbon:
+  eager-load:
+    enabled: true
+    clients: user-center
