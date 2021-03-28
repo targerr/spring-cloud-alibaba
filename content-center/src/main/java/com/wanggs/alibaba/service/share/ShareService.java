@@ -4,6 +4,7 @@ import com.wanggs.alibaba.dao.share.ShareMapper;
 import com.wanggs.alibaba.domain.dto.content.ShareDTO;
 import com.wanggs.alibaba.domain.dto.user.UserDTO;
 import com.wanggs.alibaba.domain.entity.share.Share;
+import com.wanggs.alibaba.feignclient.UserCenterFeignClient;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -29,8 +30,28 @@ public class ShareService {
     private final ShareMapper shareMapper;
     private final RestTemplate restTemplate;
     private final DiscoveryClient discoveryClient;
+    // 使用feign客户端调用
+    private final UserCenterFeignClient userCenterFeignClient;
+
 
     public ShareDTO findById(Integer id) {
+        // 获取分享详情
+        Share share = this.shareMapper.selectByPrimaryKey(id);
+        // 发布人Id
+        Integer userId = share.getUserId();
+
+
+        // 使用Feign负载均衡
+        UserDTO userDTO = userCenterFeignClient.findById(userId);
+
+        // 装配ShareDTO对象
+        ShareDTO shareDTO = new ShareDTO();
+        BeanUtils.copyProperties(share,shareDTO);
+        shareDTO.setWxNickname(userDTO.getWxNickname());
+        return shareDTO;
+    }
+
+    public ShareDTO findById1(Integer id) {
         // 获取分享详情
         Share share = this.shareMapper.selectByPrimaryKey(id);
         // 发布人Id
