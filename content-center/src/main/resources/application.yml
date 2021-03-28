@@ -38,9 +38,9 @@ logging:
   level:
     com.wanggs: debug # com.wanggs包里面的所有日志都会以debug级别输出
     com.wanggs.alibaba.feignclient.UserCenterFeignClient: debug # 指定输出级别
-feign:
-  client:
-    config:
-      # 想要调用的微服务名称
-      user-center:
-        loggerLevel: full
+#feign:
+#  client:
+#    config:
+#      # 想要调用的微服务名称
+#      user-center:
+#        loggerLevel: full
