@@ -34,3 +34,7 @@ ribbon:
   eager-load:
     enabled: true
     clients: user-center
+logging:
+  level:
+    com.wanggs: debug # com.wanggs包里面的所有日志都会以debug级别输出
+    com.wanggs.alibaba.feignclient.UserCenterFeignClient: debug # 指定输出级别

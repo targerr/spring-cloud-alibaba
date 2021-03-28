@@ -1,5 +1,6 @@
 package com.wanggs.alibaba.feignclient;
 
+import com.wanggs.alibaba.configuration.UserCenterFeignConfiguration;
 import com.wanggs.alibaba.domain.dto.user.UserDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,7 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
  * @Author: wgs
  * @Date: 2021/3/28
  */
-@FeignClient("user-center")
+@FeignClient(name = "user-center",configuration = UserCenterFeignConfiguration.class)
 public interface UserCenterFeignClient {
     /**
      * http://user-center/users/{id}
