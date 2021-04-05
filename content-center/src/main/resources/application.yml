@@ -20,6 +20,14 @@ spring:
   application:
     # 服务名称尽量用-，不要用_，不要用特殊字符
     name: contner-center
+  boot:
+    admin:
+      client:
+        url: http://127.0.0.1:8002
+        username: admin
+        password: gbw@123456
+        instance:
+          prefer-ip: true
 server:
   port: 8081
 
@@ -36,11 +44,25 @@ ribbon:
     clients: user-center
 logging:
   level:
-    com.wanggs: debug # com.wanggs包里面的所有日志都会以debug级别输出
-    com.wanggs.alibaba.feignclient.UserCenterFeignClient: debug # 指定输出级别
+    com: debug
+  file:
+    path: spring/log
+
 feign:
   client:
     config:
       # 全局配置
       default:
         loggerLevel: full
+
+#启用监控.开启监控后，可直接通过actuator的rest接口查看服务的详细信息。例如查看网关的路由：http://localhost:8888/actuator/gateway/routes
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"  # 开放所有端点health，info，metrics，通过actuator/+端点名就可以获取相应的信息。默认打开health和info
+  endpoint:
+    health:
+      show-details: always  #未开启actuator/health时，我们获取到的信息是{"status":"UP"}，status的值还有可能是 DOWN。开启后打印详细信息
+    shutdown:
+      enabled: true #远程关闭或者重启服务
